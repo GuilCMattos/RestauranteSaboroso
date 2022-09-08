@@ -3,7 +3,8 @@ var conn = require('./../inc/db');
 var express = require('express');
 var menus = require('./../inc/menus');
 var reservations = require('./../inc/reservations')
-var contacts = require('./../inc/contacts')
+var contacts = require('./../inc/contacts');
+const emails = require('../inc/emails');
 var router = express.Router();
 
 /* GET home page. */
@@ -116,6 +117,19 @@ router.get('/services', function(req,res,next){
     h1: 'É um prazer poder servir!'
   })
 
-})
+});
+
+router.get('/subscribe', function(req, res, next){ 
+
+  emails.save(req).then(results=> { 
+
+    res.send(results);
+  }).catch(err=> { 
+    res.send(err);
+  });
+
+    
+
+});
 
 module.exports = router

@@ -24,3 +24,25 @@
 
 <!-- Main -->
 <script src="js/main.js"></script>
+
+<script src="/js/hcode-formsave.js"></script>
+<script src="/js/hcode-grid.js"></script>
+
+<script> 
+
+    let formSubscribe = document.querySelector('#form-subscribe')
+
+    if(formSubscribe) { 
+
+        formSubscribe.save({
+            sucess:()=> { 
+                alert("Email cadastrado com sucesso!")
+            },
+            failure: (err)=> { 
+                alert(err)
+            }
+        })
+
+    }
+
+</script>
