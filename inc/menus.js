@@ -7,7 +7,7 @@ module.exports = {
 
         return new Promise((resolve, reject)=> { 
 
-            conn.query(`
+             conn.query(`
                 SELECT * FROM tb_menus ORDER BY title
                 `, (err, results)=> { 
 
@@ -65,7 +65,7 @@ module.exports = {
                 }
 
                 query = `
-                INSTERT INTO tb_menus (title, description, price, photo)
+                INSERT INTO tb_menus (title, description, price, photo)
                 VALUES(?, ?, ?, ?)
                 `
 

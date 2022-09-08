@@ -1,34 +1,38 @@
-HTMLFormElement.prototype.save = function(){
+HTMLFormElement.prototype.save = function(config){
 
     let form = this;
 
-    return new Promise((resolve, reject)=> { 
+    form.addEventListener('submit', e=> { 
 
-        form.addEventListener('submit', e=> { 
+      e.preventDefault();
 
-            e.preventDefault();
-      
-            let formData = new FormData(form);
-      
-            fetch(form.action,
-              {
-                method: form.method,
-                body: formData
-              })
-              .then(response => response.json())
-              .then(json => { 
-      
-                resolve(json);
-      
-              }).catch(err=> {
+      let formData = new FormData(form);
 
-                reject(err)
+      fetch(form.action,
+        {
+          method: form.method,
+          body: formData
+        })
+        .then(response => response.json())
+        .then(json => { 
 
-              });
-      
-      
-          });
+          if(json.error) {
+             if(typeof config.failure(json) === 'function') config.failure(json.error);
+          } else  { 
+            if(typeof config.success(json) === 'function') config.success(json);
+          }
+
+          
+
+        }).catch(err=> {
+
+          if(typeof config.failure(json) === 'function') config.failure(err);
+
+        });
+
 
     });
+
+   
     
 }
